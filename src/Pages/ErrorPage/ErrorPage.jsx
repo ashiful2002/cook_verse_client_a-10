@@ -1,9 +1,13 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router";
 
 const ErrorPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-4 text-center">
+      <Helmet>
+        <title>Not Found | Cook_verse</title>
+      </Helmet>
       <div className="max-w-md">
         <div className="text-9xl font-bold text-primary">404</div>
         <h1 className="text-3xl font-bold mt-4 text-gray-800">

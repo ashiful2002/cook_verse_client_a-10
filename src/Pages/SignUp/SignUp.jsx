@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import GoogleLogin from "../Login/GoogleLogin/GoogleLogin";
+import { Helmet } from "react-helmet";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/Firebse.init";
 
 const SignUp = () => {
   const [error, setError] = useState(false);
@@ -9,24 +12,66 @@ const SignUp = () => {
   const handleUserSignUp = (e) => {
     e.preventDefault();
 
+    const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
-    const user = { email, password };
-    alert("this is working");
-    navigate("/");
-    console.log(user);
+    const photo = e.target.photo.value;
+
+    const passwordRegx = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+    if (password.length < 6) {
+      setError(" Password must be at least 6 characters long.");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      setError(" Password must be at least one lowercase letter.");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      setError(" Password must be at least one Uppercase letter.");
+      return;
+    } else if (!/[0-9]/.test(password)) {
+      setError(" Password must be at least a number");
+      return;
+    }
+
+    const user = { name, email, password, photo };
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        console.log(user);
+        navigate("/");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage);
+        // ..
+      });
   };
 
   return (
     <div>
+      <Helmet>
+        <title>Sign Up | Cook_verse</title>
+      </Helmet>
       <div className="pt-10 bg-base-200 min-h-screen">
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Sign up now!</h1>
+            <h1 className="text-5xl font-bold">Sign up</h1>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
               <form onSubmit={handleUserSignUp} className="fieldset">
+                {/* name */}
+                <label className="label">Name</label>
+                <input
+                  name="name"
+                  type="text"
+                  className="input"
+                  placeholder="User name"
+                />
+                {/* email */}
                 <label className="label">Email</label>
                 <input
                   name="email"
@@ -34,6 +79,7 @@ const SignUp = () => {
                   className="input"
                   placeholder="Email"
                 />
+                {/* password */}
                 <label className="label">Password</label>
                 <input
                   name="password"
@@ -41,19 +87,29 @@ const SignUp = () => {
                   className="input"
                   placeholder="Password"
                 />
+                {/* photo url */}
+                <label className="label">Photo url</label>
+                <input
+                  name="photo"
+                  type="text"
+                  className="input"
+                  placeholder="Paste you photo url"
+                />
+
                 {/* <div>
                   <a className="link link-hover">Forgot password?</a>
                 </div> */}
                 <div className="flex justify-end">
-                  <Link to="/signin" className="link">
-                    Already have an account? log in
-                  </Link>
+                  <>
+                    Already have an account?
+                    <Link to="/signin" className="link">
+                      log in
+                    </Link>
+                  </>
                 </div>
-                <div>
-                  {error && <p className="text-red-600">this is a error </p>}
-                </div>
+                <div>{error && <p className="text-red-500">{error}</p>}</div>
                 <button type="submit" className="btn btn-neutral mt-4">
-                  Login
+                  Sign Up
                 </button>
               </form>
             </div>

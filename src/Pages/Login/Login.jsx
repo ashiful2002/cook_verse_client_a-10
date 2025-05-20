@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import GoogleLogin from "./GoogleLogin/GoogleLogin";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const [error, setError] = useState(false);
@@ -29,6 +30,9 @@ const Login = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Log In | Cook_verse</title>
+      </Helmet>
       <div className="pt-10 bg-base-200 min-h-screen">
         <div className="hero-content flex-col ">
           <div className="text-center lg:text-left">
@@ -55,7 +59,9 @@ const Login = () => {
                   <a className="link link-hover">Forgot password?</a>
                 </div>
                 <div className="flex justify-end">
-                  <Link to="/signup" className="link">New user? sign up first. </Link>
+                  <Link to="/signup" className="link">
+                    New user? sign up first.{" "}
+                  </Link>
                 </div>
                 <div>
                   {error && <p className="text-red-600">this is a error </p>}

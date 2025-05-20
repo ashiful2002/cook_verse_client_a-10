@@ -1,10 +1,32 @@
 import React from "react";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../../Firebase/Firebse.init";
+import { useNavigate } from "react-router";
 
 const GoogleLogin = () => {
+  const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
+
+  const handleLoginWithGooogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
+
   return (
     <div>
       {/* Google */}
-      <button className="btn w-full my-2 bg-white text-black border-[#e5e5e5]">
+      <button
+        onClick={handleLoginWithGooogle}
+        className="btn w-full my-2 bg-white text-black border-[#e5e5e5]"
+      >
         <svg
           aria-label="Google logo"
           width="16"

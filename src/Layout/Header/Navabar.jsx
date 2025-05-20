@@ -1,23 +1,41 @@
 import React from "react";
 import { Link, NavLink } from "react-router";
+import { Tooltip } from "react-tooltip";
+import { signOut } from "firebase/auth";
+import { auth } from "../../Firebase/Firebse.init";
+import ToggleTheme from "./ToggleTheme/ToggleTheme";
 
 const Navabar = () => {
+  const handleSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+        console.log("user sign out successfull");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   const links = (
     <>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
       <li>
-        <NavLink to="/about">About</NavLink>
+        <NavLink to="/all-recipe">All Recipes</NavLink>
       </li>
       <li>
-        <NavLink to="/contact">Contact</NavLink>
+        <NavLink to="/add-recipe">Add Recipe</NavLink>
+      </li>
+      <li>
+        <NavLink to="/my-recipe">My Recipes</NavLink>
       </li>
     </>
   );
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm">
+    <div className="bg-base-100 shadow-sm">
+      <div className="navbar md:w-11/12 mx-auto ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,22 +57,43 @@ const Navabar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 space-y-2  shadow"
             >
               {links}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-xl">
-            M. Books
+            Cook_Verse
           </Link>
         </div>
         <div className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal px-1">{links}</ul>
+          <ul className="menu menu-horizontal px-1 space-x-2">{links}</ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex items-center gap-4">
+          <div>
+            <>
+              <a id="clickable">
+                <div className="avatar">
+                  <div className="w-12 rounded-full">
+                    <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+                  </div>
+                </div>
+              </a>
+
+              <Tooltip className="mt-3" anchorSelect="#clickable" clickable>
+                <p>User name</p>
+                <button onClick={handleSignOut} className="btn btn-xs">
+                  Log out
+                </button>
+              </Tooltip>
+            </>
+          </div>
           <Link to="signin" className="btn">
             Sign in
           </Link>
+          <div>
+            <ToggleTheme />
+          </div>
         </div>
       </div>
     </div>
