@@ -4,6 +4,7 @@ import Typing from "./Typing";
 import Animation from "./Animation";
 
 const HeroSection = () => {
+  
   return (
     <div className="hero md:p-10 xl:p-20 bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse">

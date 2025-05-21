@@ -7,6 +7,7 @@ const Typing = () => {
   };
 
   return (
+    // this is typing animation 
     <div className="App">
       <h1
         className="text-2xl"
