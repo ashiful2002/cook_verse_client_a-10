@@ -43,10 +43,7 @@ const Home = () => {
               </p>
             </div>
             <div className="flex flex-wrap justify-between">
-              <Link to={`/recipe/${item._id}`} className="btn btn-xs">
-                {" "}
-                view details
-              </Link>
+              
               <div className="flex space-x-2 text-sm dark:text-gray-600">
                 <button
                   type="button"
@@ -58,23 +55,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          // <div className="card bg-amber-100 p-4 " key={index}>
-          //   <img
-          //     src={item.image}
-          //     alt={item.title}
-          //     className="w-52 rounded-2xl"
-          //   />
-
-          //   <h2>{item.title}</h2>
-          //   <p>{item.cuisine}</p>
-          //   <p>{item.ingredients}</p>
-          //   <p className="flex items-center gap-2">
-          //     <button>
-          //       <FaHeart />
-          //     </button>
-          //     <span>{item.likeCount}</span>
-          //   </p>
-          // </div>
+        
         ))}
       </div>
       <Link to="/all-recipe" className="btn btn-primary ">

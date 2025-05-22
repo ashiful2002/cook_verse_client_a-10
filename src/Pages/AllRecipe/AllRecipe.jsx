@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { FaHeart } from "react-icons/fa";
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 
 const AllRecipe = () => {
   const data = useLoaderData();
@@ -14,7 +14,7 @@ const AllRecipe = () => {
       <Helmet>
         <title>All Recipe | Cook_verse</title>
       </Helmet>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 flex-wrap">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 flex-wrap">
         {data.map((item, index) => (
           <div className="card bg-amber-100 p-4 " key={index}>
             <img
@@ -36,13 +36,19 @@ const AllRecipe = () => {
                 </span>
               ))}
             </p>
-            <p className="flex items-center gap-2">
-              <button onClick={handelHeartCount}>
-                <FaHeart />
-              </button>
-              {/* {setCount(item.likeCount)} */}
-              <span>{count}</span>
-            </p>
+            <div className="flex items-center justify-between my-2">
+              <Link to={`/recipe/${item._id}`} className="btn btn-xs">
+            
+                See Details
+              </Link>
+              <p className="flex items-center gap-2">
+                <button onClick={handelHeartCount}>
+                  <FaHeart />
+                </button>
+                {/* {setCount(item.likeCount)} */}
+                <span>{count}</span>
+              </p>
+            </div>
           </div>
         ))}
       </div>

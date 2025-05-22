@@ -1,42 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import GoogleLogin from "./GoogleLogin/GoogleLogin";
 import { Helmet } from "react-helmet";
+import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
   const [error, setError] = useState(false);
+  const { loginUser } = useContext(AuthContext);
+
   const navigate = useNavigate();
   const handleUserLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     const user = { email, password };
-    alert("this is working");
     navigate("/");
-    console.log(user);
+    loginUser(email, password);
   };
-
-  // ( Email, Password, Forget Password, Login button )
-
-  // If the user logs in successfully, then
-  // navigate them to their desired Route / Home page.
-  // If not, show him an error with a toast/error message anywhere in the form.
-
-  // There will be some other options like
-  // Show the user a Link for Register so that he can go to the register page.
-  // Show users a Social Login Button ( Google only ) on clicking it
-  // The user authenticates with Google
-  //  Navigate him to his desired Route / Home page.
 
   return (
     <div>
       <Helmet>
         <title>Log In | Cook_verse</title>
       </Helmet>
-      <div className="pt-10 bg-base-200 min-h-screen">
-        <div className="hero-content flex-col ">
+      <div className="pt-10 bg-base-200 min-h-[80vh]">
+        <div className="flex items-center justify-center flex-col ">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
+            <h1 className="text-5xl my-5 font-bold">Login now!</h1>
           </div>
           <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
             <div className="card-body">
@@ -47,6 +38,7 @@ const Login = () => {
                   type="email"
                   className="input"
                   placeholder="Email"
+                  required
                 />
                 <label className="label">Password</label>
                 <input
@@ -54,9 +46,12 @@ const Login = () => {
                   type="password"
                   className="input"
                   placeholder="Password"
+                  required
                 />
                 <div>
-                  <a className="link link-hover">Forgot password?</a>
+                  <span>
+                    <a className="link link-hover">Forgot password?</a>
+                  </span>
                 </div>
                 <div className="flex justify-end">
                   <Link to="/signup" className="link">

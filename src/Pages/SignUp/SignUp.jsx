@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 import { Helmet } from "react-helmet";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import GoogleLogin from "../Login/GoogleLogin/GoogleLogin";
 
 const SignUp = () => {
   // most important
@@ -40,6 +41,7 @@ const SignUp = () => {
         const user = userCredential.user;
         console.log("firebse user created", user);
         // db
+        // i send user data in mongodb datasbse . but cant accecc from mongodb and use in navbar
         fetch("http://localhost:3000/users", {
           method: "POST",
           headers: {
@@ -50,6 +52,7 @@ const SignUp = () => {
           .then((res) => res.json())
           .then((data) => {
             console.log("User saved to db", data);
+            navigate("/")
             if (data.insertedId) {
               Swal.fire({
                 // position: "top-end",
@@ -136,6 +139,7 @@ const SignUp = () => {
                   Sign Up
                 </button>
               </form>
+              <GoogleLogin />
             </div>
           </div>
         </div>

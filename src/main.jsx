@@ -38,17 +38,21 @@ const router = createBrowserRouter([
       },
       {
         path: "/recipe/:id",
-        Component: Details,
+        element: (
+          <PrivateRoute>
+            <Details />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/recipes/${params._id}`),
+          fetch(`http://localhost:3000/recipes/${params.id}`),
         hydrateFallbackElement: <Loading />,
       },
       {
         path: "/add-recipe",
         element: (
-          <>
+          <PrivateRoute>
             <AddRecipe></AddRecipe>
-          </>
+          </PrivateRoute>
         ),
         errorElement: <ErrorPage />,
         hydrateFallbackElement: <Loading />,

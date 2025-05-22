@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { Tooltip } from "react-tooltip";
-import { signOut } from "firebase/auth";
-import { auth } from "../../Firebase/Firebse.init";
 import ToggleTheme from "./ToggleTheme/ToggleTheme";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
