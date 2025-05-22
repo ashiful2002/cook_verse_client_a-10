@@ -1,52 +1,75 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
-import GoogleLogin from "../Login/GoogleLogin/GoogleLogin";
 import { Helmet } from "react-helmet";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase/Firebse.init";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
+  // most important
+  const { createUser } = useContext(AuthContext);
+
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleUserSignUp = (e) => {
     e.preventDefault();
-
     const name = e.target.name.value;
     const email = e.target.email.value;
     const password = e.target.password.value;
     const photo = e.target.photo.value;
 
-    const passwordRegx = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    // if (password.length < 6) {
+    //   setError(" Password must be at least 6 characters long.");
+    //   return;
+    // } else if (!/[a-z]/.test(password)) {
+    //   setError(" Password must be at least one lowercase letter.");
+    //   return;
+    // } else if (!/[A-Z]/.test(password)) {
+    //   setError(" Password must be at least one Uppercase letter.");
+    //   return;
+    // } else if (!/[0-9]/.test(password)) {
+    //   setError(" Password must be at least a number");
+    //   return;
+    // }
 
-    if (password.length < 6) {
-      setError(" Password must be at least 6 characters long.");
-      return;
-    } else if (!/[a-z]/.test(password)) {
-      setError(" Password must be at least one lowercase letter.");
-      return;
-    } else if (!/[A-Z]/.test(password)) {
-      setError(" Password must be at least one Uppercase letter.");
-      return;
-    } else if (!/[0-9]/.test(password)) {
-      setError(" Password must be at least a number");
-      return;
-    }
-
-    const user = { name, email, password, photo };
-    createUserWithEmailAndPassword(auth, email, password)
+    const newUser = { name, email, password, photo };
+    // firebase
+    createUser(email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        console.log(user);
-        navigate("/");
-        // ...
+        console.log("firebse user created", user);
+        // db
+        fetch("http://localhost:3000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("User saved to db", data);
+            if (data.insertedId) {
+              Swal.fire({
+                // position: "top-end",
+                icon: "success",
+                title: "Users data stored in databse",
+                showConfirmButton: false,
+                timer: 1000,
+              });
+              e.target.reset();
+            }
+            //  navigate("/")
+          })
+          .catch((err) => {
+            console.log("db error :", err);
+          });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         setError(errorMessage);
-        // ..
       });
   };
 
@@ -70,6 +93,7 @@ const SignUp = () => {
                   type="text"
                   className="input"
                   placeholder="User name"
+                  required
                 />
                 {/* email */}
                 <label className="label">Email</label>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import RecipeForm from "./RecipeForm/RecipeForm";
 
 const AddRecipe = () => {
   return (
@@ -7,7 +8,7 @@ const AddRecipe = () => {
       <Helmet>
         <title>Add Recipe | Cook_verse</title>
       </Helmet>
-      asdfasf
+      <RecipeForm />
     </>
   );
 };

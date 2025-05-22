@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../../Firebase/Firebse.init";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const GoogleLogin = () => {
+  const { GoogleLogin, setUser } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
 
-  const handleLoginWithGooogle = () => {
-    signInWithPopup(auth, provider)
+  const handleLoginWithGoogle = () => {
+    // signInWithPopup(auth, provider)
+    GoogleLogin()
       .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        console.log(credential);
         const user = result.user;
-        console.log(user);
+
+        setUser({ ...user, credential });
         navigate("/");
+        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -24,7 +31,7 @@ const GoogleLogin = () => {
     <div>
       {/* Google */}
       <button
-        onClick={handleLoginWithGooogle}
+        onClick={handleLoginWithGoogle}
         className="btn w-full my-2 bg-white text-black border-[#e5e5e5]"
       >
         <svg

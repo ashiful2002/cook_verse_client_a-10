@@ -12,6 +12,10 @@ import Loading from "./Components/Loading/Loading.jsx";
 import AllRecipe from "./Pages/AllRecipe/AllRecipe.jsx";
 import AddRecipe from "./Pages/AddRecipe/AddRecipe.jsx";
 import MyRecipe from "./Pages/MyRecipe/MyRecipe.jsx";
+import AuthProvider from "./Provider/AuthProvider.jsx";
+import PrivateRoute from "./Provider/PrivateRoute.jsx";
+import { ToastContainer } from "react-toastify";
+import Details from "./Pages/Details/Details.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,14 +27,31 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
+        loader: () => fetch("http://localhost:3000/recipes"),
+        hydrateFallbackElement: <Loading />,
       },
       {
         path: "/all-recipe",
         Component: AllRecipe,
+        loader: () => fetch("http://localhost:3000/recipes"),
+        hydrateFallbackElement: <Loading />,
+      },
+      {
+        path: "/recipe/:id",
+        Component: Details,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/recipes/${params._id}`),
+        hydrateFallbackElement: <Loading />,
       },
       {
         path: "/add-recipe",
-        Component: AddRecipe,
+        element: (
+          <>
+            <AddRecipe></AddRecipe>
+          </>
+        ),
+        errorElement: <ErrorPage />,
+        hydrateFallbackElement: <Loading />,
       },
       {
         path: "/my-recipe",
@@ -50,8 +71,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <>
+    <AuthProvider>
       <RouterProvider router={router}></RouterProvider>
-    </>
+      <ToastContainer closeOnClick />
+    </AuthProvider>
   </StrictMode>
 );

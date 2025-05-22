@@ -1,19 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { Tooltip } from "react-tooltip";
 import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase/Firebse.init";
 import ToggleTheme from "./ToggleTheme/ToggleTheme";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Navabar = () => {
+  const { user, signOutUser, setUser } = useContext(AuthContext);
+
   const handleSignOut = () => {
-    signOut(auth)
+    signOutUser()
       .then(() => {
-        // Sign-out successful.
-        console.log("user sign out successfull");
+        setUser(null);
+        toast.success("User signed out successfully!");
       })
-      .catch((error) => {
-        // An error happened.
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -72,25 +76,31 @@ const Navabar = () => {
         <div className="navbar-end flex items-center gap-4">
           <div>
             <>
-              <a id="clickable">
-                <div className="avatar">
-                  <div className="w-12 rounded-full">
-                    <img src="https://img.daisyui.com/images/profile/demo/yellingcat@192.webp" />
+              {user && (
+                <a id="clickable">
+                  <div className="avatar">
+                    <div className="w-12 rounded-full">
+                      <img src={user.photoURL} />
+                    </div>
                   </div>
-                </div>
-              </a>
+                </a>
+              )}
 
-              <Tooltip className="mt-3" anchorSelect="#clickable" clickable>
-                <p>User name</p>
-                <button onClick={handleSignOut} className="btn btn-xs">
-                  Log out
-                </button>
-              </Tooltip>
+              {user ? (
+                <Tooltip className="mt-3" anchorSelect="#clickable" clickable>
+                  <p>{user && user.displayName}</p>
+                  <button onClick={handleSignOut} className="btn btn-xs">
+                    Log out
+                  </button>
+                </Tooltip>
+              ) : (
+                <Link to="signin" className="btn">
+                  Sign in
+                </Link>
+              )}
             </>
           </div>
-          <Link to="signin" className="btn">
-            Sign in
-          </Link>
+
           <div>
             <ToggleTheme />
           </div>
