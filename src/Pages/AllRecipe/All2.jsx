@@ -20,7 +20,7 @@ const ALl2 = () => {
   }, [selectedCuisine, data]);
 
   const cuisines = ["All", ...new Set(data.map((r) => r.cuisine))];
-
+ 
   return (
     <>
       <Helmet>
