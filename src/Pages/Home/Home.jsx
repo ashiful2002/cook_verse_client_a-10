@@ -13,54 +13,46 @@ const Home = () => {
       </Helmet>
       <HeroSection />
       <h2 className="text-3xl font-semibold text-primary my-3 text-center">
-        Featured recipes is here
+        Featured recipes
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 flex-wrap">
-        {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-50 dark:text-gray-800"
-          >
-            <div>
-              <img
-                src={item.image}
-                alt={item.title}
-                className="object-cover rounded-2xl w-full mb-4 h-60 sm:h-96 dark:bg-gray-500"
-              />
-              <div className="flex items-center">
-                <h2 className="mb-1 text-xl font-semibold">{item.title}</h2>{" "}
-                <h2 className="badge">{item.cuisine}</h2>
-              </div>
-              <p className="flex gap-2">
-                {item.selectedCategories.map((it, index) => (
-                  <span
-                    key={index}
-                    className="bg-amber-300 rounded-2xl px-2 text-stone-800"
-                  >
-                    {it}
-                  </span>
-                ))}
-              </p>
-            </div>
-            <div className="flex flex-wrap justify-between">
-              
-              <div className="flex space-x-2 text-sm dark:text-gray-600">
-                <button
-                  type="button"
-                  className="flex items-center p-1 space-x-1.5"
-                >
-                  <FaRegHeart />
-                  <span>{item.likeCount}</span>
-                </button>
+        {data.map((recipe, index) => (
+          <div key={index} className="max-w-3xl mx-auto p-2">
+            <div className="card bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-72 object-cover"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title text-2xl font-bold capitalize">
+                  {recipe.title}
+                </h2>
+                <p>
+                  <span className="font-semibold">Cuisine:</span>{" "}
+                  {recipe.cuisine}
+                </p>
+
+                <p>
+                  <span className="font-semibold">Categories:</span>{" "}
+                  {recipe.selectedCategories?.join(", ")}
+                </p>
+                <p className="flex items-center justify-end gap-2">
+                  {/* <span className="font-semibold">Likes:</span> */}
+                  <FaRegHeart /> {recipe.likeCount}
+                </p>
               </div>
             </div>
           </div>
-        
         ))}
       </div>
-      <Link to="/all-recipe" className="btn btn-primary ">
-        All Recipe
-      </Link>
+      <div className="mx-auto w-32 my-6">
+        <Link to="/all-recipe" className="btn btn-primary ">
+          All Recipe
+        </Link>
+      </div>
     </div>
   );
 };

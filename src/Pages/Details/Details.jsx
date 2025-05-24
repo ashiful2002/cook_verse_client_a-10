@@ -4,7 +4,6 @@ import RecipeDetails from "./RecipeDetails/RecipeDetails";
 
 const Details = () => {
   const data = useLoaderData();
-  console.log(data);
 
   return (
     <div>

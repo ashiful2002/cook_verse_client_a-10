@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaLongArrowAltRight } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router";
 
 const AllRecipe = () => {
@@ -15,39 +15,43 @@ const AllRecipe = () => {
         <title>All Recipe | Cook_verse</title>
       </Helmet>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 flex-wrap">
-        {data.map((item, index) => (
-          <div className="card bg-amber-100 p-4 " key={index}>
-            <img
-              src={item.image}
-              alt={item.title}
-              className="w-52 rounded-2xl"
-            />
-            <h2>Name: {item.title}</h2>
-            <p>Cousine: {item.cuisine}</p>
-            <p>Ingredients: {item.ingredients}</p>
-            <p>Instructions: {item.instructions}</p>
-            <p className="flex gap-2">
-              {item.selectedCategories.map((it, index) => (
-                <span
-                  key={index}
-                  className="bg-amber-300 rounded-2xl px-2 text-stone-800"
-                >
-                  {it}
-                </span>
-              ))}
-            </p>
-            <div className="flex items-center justify-between my-2">
-              <Link to={`/recipe/${item._id}`} className="btn btn-xs">
-            
-                See Details
-              </Link>
-              <p className="flex items-center gap-2">
-                <button onClick={handelHeartCount}>
-                  <FaHeart />
-                </button>
-                {/* {setCount(item.likeCount)} */}
-                <span>{count}</span>
-              </p>
+        {data.map((recipe, index) => (
+          <div key={index} className="max-w-3xl mx-auto p-2">
+            <div className="card bg-base-100 shadow-xl">
+              <figure>
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-72 object-cover"
+                />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title text-2xl font-bold capitalize">
+                  {recipe.title}
+                </h2>
+                <p>
+                  <span className="font-semibold">Cuisine:</span>{" "}
+                  {recipe.cuisine}
+                </p>
+                <p>
+                  <span className="font-semibold">Preparation Time:</span>{" "}
+                  {recipe.preparation_time} minutes
+                </p>
+
+                <p>
+                  <span className="font-semibold">Categories:</span>{" "}
+                  {recipe.selectedCategories?.join(", ")}
+                </p>
+                <div className="flex mt-3">
+                  <p>
+                    <span className="font-semibold">Likes:</span>{" "}
+                    {recipe.likeCount}
+                  </p>
+                  <Link className="btn btn-xs" to={`/recipe/${recipe._id}`}>
+                    View Details <FaLongArrowAltRight />
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         ))}
