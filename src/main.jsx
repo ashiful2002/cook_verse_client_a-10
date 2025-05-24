@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
-        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes/top-liked"),
         hydrateFallbackElement: <Loading />,
       },
       {
