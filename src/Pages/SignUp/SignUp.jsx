@@ -42,7 +42,7 @@ const SignUp = () => {
         console.log("firebse user created", user);
         // db
         // i send user data in mongodb datasbse . but cant accecc from mongodb and use in navbar
-        fetch("http://localhost:3000/users", {
+        fetch("http://https://a10-book-server-app.vercel.app/:3000/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

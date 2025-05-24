@@ -43,7 +43,7 @@ const RecipeForm = () => {
       email: user?.email,
     };
 
-    fetch("http://localhost:3000/recipes", {
+    fetch("https://a10-book-server-app.vercel.app/recipes", {
       method: "POST",
       headers: {
         "content-type": "application/json",

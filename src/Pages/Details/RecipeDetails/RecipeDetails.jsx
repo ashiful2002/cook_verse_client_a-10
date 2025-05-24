@@ -21,7 +21,7 @@ const RecipeDetails = ({ recipe }) => {
     // set in ui
     setLikes(newLikes);
 
-    fetch(`http://localhost:3000/recipes/${recipe._id}/like`, {
+    fetch(`http://https://a10-book-server-app.vercel.app/:3000/recipes/${recipe._id}/like`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

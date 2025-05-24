@@ -19,7 +19,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
           : formData.ingredients,
     };
 
-    fetch(`http://localhost:3000/recipes/${recipe._id}`, {
+    fetch(`http://https://a10-book-server-app.vercel.app/:3000/recipes/${recipe._id}`, {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(updatedData),

@@ -28,13 +28,13 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
-        loader: () => fetch("http://localhost:3000/recipes/top-liked"),
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
         hydrateFallbackElement: <Loading />,
       },
       {
         path: "/all-recipe",
         Component: ALl2,
-        loader: () => fetch("http://localhost:3000/recipes"),
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
         hydrateFallbackElement: <Loading />,
       },
       {
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/recipes/${params.id}`),
+          fetch(`https://a10-book-server-app.vercel.app/recipes/${params.id}`),
         hydrateFallbackElement: <Loading />,
       },
       {

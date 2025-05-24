@@ -9,14 +9,14 @@ const MyRecipe = () => {
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     if (user.email) {
-      fetch(`http://localhost:3000/recipes?email=${user.email}`)
+      fetch(`https://a10-book-server-app.vercel.app/recipes?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => setRecipes(data));
     }
   }, [user]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/recipes/${id}`, {
+    fetch(`https://a10-book-server-app.vercel.app//recipes/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
