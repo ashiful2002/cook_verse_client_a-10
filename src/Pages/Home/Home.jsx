@@ -27,7 +27,7 @@ const Home = () => {
                 />
               </figure>
               <div className="card-body">
-                <h2 className="card-title text-2xl font-bold capitalize">
+                <h2 className="card-title text-2xl font-bold capitalize text-primary opacity-80">
                   {recipe.title}
                 </h2>
                 <p>

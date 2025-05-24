@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const RecipeForm = () => {
+  const { user } = useContext(AuthContext);
   const [selectedCuisine, setSelectedCuisine] = useState("Cousine Type");
 
   const cuisines = [
@@ -21,12 +23,13 @@ const RecipeForm = () => {
     const selectedCategories = formData.getAll("categories");
 
     const title = e.target.title.value;
-    const ingredients = e.target.ingredients.value;
+    const ingredientsInput = e.target.ingredients.value;
     const instructions = e.target.instructions.value;
     const cuisine = e.target.cuisine.value;
     const preparation_time = e.target.preparation_time.value;
     const likeCount = e.target.likeCount.value;
     const image = e.target.image.value;
+    const ingredients = ingredientsInput.split(",").map((item) => item.trim());
 
     const recipes = {
       title,
@@ -37,6 +40,7 @@ const RecipeForm = () => {
       selectedCategories,
       likeCount,
       image,
+      email: user?.email,
     };
     console.log(recipes);
 
@@ -51,8 +55,8 @@ const RecipeForm = () => {
       .then((data) => {
         data.body;
         toast("data added");
-      }).catch((err)=> console.log("db error", err)
-      )
+      })
+      .catch((err) => console.log("db error", err));
   };
   return (
     <div className="flex flex-col items-center justify-center  bg-base-200">

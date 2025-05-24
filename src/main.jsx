@@ -59,7 +59,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-recipe",
-        Component: MyRecipe,
+        element: (
+          <PrivateRoute>
+            <MyRecipe />
+          </PrivateRoute>
+        ),
       },
       {
         path: "signin",

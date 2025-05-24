@@ -6,25 +6,38 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 const RecipeDetails = ({ recipe }) => {
   const { user } = useContext(AuthContext);
   const [likes, setLikes] = useState(Number(recipe.likeCount || 0));
-  const [liked, setLiked] = useState(false);
+  // const [liked, setLiked] = useState(false);
 
   const handleLike = () => {
     if (!user) {
       return;
     }
 
-    if (!liked) {
-      setLikes(likes + 1);
-      setLiked(true);
-    }
+    // if (!liked) {
+    //   setLikes(likes + 1);
+    //   setLiked(true);
+    // }
+    const newLikes = likes + 1;
+    // set in ui
+    setLikes(newLikes);
 
     fetch(`http://localhost:3000/recipes/${recipe._id}/like`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify({ likeCount: likes + 1 }),
-    });
+      //send response in backend
+      body: JSON.stringify({ likeCount: newLikes }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("failed to update like count");
+        }
+        return res.json();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -58,17 +71,12 @@ const RecipeDetails = ({ recipe }) => {
             <span className="font-semibold">Categories:</span>{" "}
             {recipe.selectedCategories?.join(", ")}
           </p>
-          {/* <p>
-            <span className="font-semibold">Likes:</span> {recipe.likeCount}
-          </p> */}
-          {/* className={`rounded ${
-              liked ? "bg-gray-400" : "bg-blue-500 hover:bg-blue-600"
-            } text-white py-2 px-4`} */}
-          <button onClick={handleLike} disabled={liked}>
+          
+          <button onClick={handleLike} >
             <div className="flex items-center gap-2">
               <span>
-                {liked ? <FaHeart className="text-primary" /> : <FaRegHeart />}
-              </span>{" "}
+                { <FaHeart className="text-primary" /> }
+              </span>
               <span>{likes}</span>
             </div>
           </button>
