@@ -42,7 +42,6 @@ const RecipeForm = () => {
       image,
       email: user?.email,
     };
-    console.log(recipes);
 
     fetch("http://localhost:3000/recipes", {
       method: "POST",

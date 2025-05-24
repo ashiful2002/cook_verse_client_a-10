@@ -4,22 +4,32 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
   const [formData, setFormData] = useState(recipe);
 
   const handleChange = (e) => {
-    const { name, value } = e.target.value;
+    const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const updatedData = {
+      ...formData,
+      ingredients:
+        typeof formData.ingredients === "string"
+          ? formData.ingredients.split(",").map((i) => i.trim())
+          : formData.ingredients,
+    };
+
     fetch(`http://localhost:3000/recipes/${recipe._id}`, {
-      method: "PUt",
+      method: "PATCH",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedData),
     })
       .then((res) => res.json())
       .then((updatedData) => {
         onSave(updatedData);
         onClose();
-      });
+      })
+      .catch((err) => console.log(err, "update failed"));
   };
 
   return (
@@ -31,10 +41,10 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
           onSubmit={handleSubmit}
         >
           <h2 className="text-xl font-bold mb-2">Update Recipe</h2>
-
+          <label htmlFor="title">Title:</label>
           <input
             name="title"
-            value={formData.title}
+            defaultValue={formData.title}
             onChange={handleChange}
             className="input input-bordered w-full"
             placeholder="Title"
@@ -42,7 +52,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <input
             name="image"
-            value={formData.image}
+            defaultValue={formData.image}
             onChange={handleChange}
             className="input input-bordered w-full"
             placeholder="Image URL"
@@ -50,7 +60,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <input
             name="ingredients"
-            value={formData.ingredients}
+            defaultValue={formData.ingredients}
             onChange={handleChange}
             className="input input-bordered w-full"
             placeholder="Ingredients (comma separated)"
@@ -58,7 +68,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <textarea
             name="instructions"
-            value={formData.instructions}
+            defaultValue={formData.instructions}
             onChange={handleChange}
             className="textarea textarea-bordered w-full"
             placeholder="Instructions"
@@ -66,7 +76,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <input
             name="cuisine"
-            value={formData.cuisine}
+            defaultValue={formData.cuisine}
             onChange={handleChange}
             className="input input-bordered w-full"
             placeholder="Cuisine"
@@ -74,7 +84,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <input
             name="preparation_time"
-            value={formData.preparation_time}
+            defaultValue={formData.preparation_time}
             onChange={handleChange}
             className="input input-bordered w-full"
             placeholder="Preparation Time"
@@ -82,7 +92,7 @@ const UpdateModal = ({ recipe, onClose, onSave }) => {
 
           <input
             name="selectedCategories"
-            value={formData.selectedCategories}
+            defaultValue={formData.selectedCategories}
             onChange={(e) =>
               setFormData({
                 ...formData,

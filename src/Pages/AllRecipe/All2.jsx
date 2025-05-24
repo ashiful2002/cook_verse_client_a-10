@@ -1,48 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
-import { FaHeart, FaLongArrowAltRight } from "react-icons/fa";
+import { FaLongArrowAltRight } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router";
 
-const AllRecipe = () => {
+const ALl2 = () => {
   const data = useLoaderData();
-  const [count, setCount] = useState(0);
-  const [selectedCousine, setSelectedCousine] = useState("All");
+  const [selectedCuisine, setSelectedCuisine] = useState("All");
   const [filteredData, setFilteredData] = useState(data);
 
   useEffect(() => {
-    if (selectedCousine === "All") {
+    if (selectedCuisine === "All") {
       setFilteredData(data);
     } else {
-      const filteredData = data.filter(
-        (r) => r.cousine?.toLowerCase() === selectedCousine.toLowerCase()
+      const filtered = data.filter(
+        (r) => r.cuisine?.toLowerCase() === selectedCuisine.toLowerCase()
       );
-      setFilteredData(filteredData);
+      setFilteredData(filtered);
     }
-  }, [selectedCousine, data]);
+  }, [selectedCuisine, data]);
 
-  const cousines = ["All", ...new Set(data.map((r) => r.cousine))];
+  const cuisines = ["All", ...new Set(data.map((r) => r.cuisine))];
+
   return (
     <>
       <Helmet>
         <title>All Recipe | Cook_verse</title>
       </Helmet>
 
-      {/*  dropdown  */}
-      <div>
-        <label className="font-semibold mr-2">Filter by Cuisine</label>
+      {/* Cuisine Dropdown */}
+      <div className="mb-5 p-4">
+        <label className="font-semibold mr-2">Filter by Cuisine:</label>
         <select
           className="select select-bordered"
-          value={selectedCousine}
-          onChange={(e) => selectedCousine(e.target.value)}
+          value={selectedCuisine}
+          onChange={(e) => setSelectedCuisine(e.target.value)}
         >
-          {cousines.map((cousine) => (
-            <option>{cousine}</option>
+          {cuisines.map((cuisine) => (
+            <option key={cuisine} value={cuisine}>
+              {cuisine}
+            </option>
           ))}
         </select>
       </div>
-      {/*  recipe  */}
+
+      {/* Recipe Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 flex-wrap">
-        {data.map((recipe, index) => (
+        {filteredData.map((recipe, index) => (
           <div key={index} className="max-w-3xl mx-auto p-2">
             <div className="card bg-base-100 shadow-xl">
               <figure>
@@ -69,7 +72,7 @@ const AllRecipe = () => {
                   <span className="font-semibold">Categories:</span>{" "}
                   {recipe.selectedCategories?.join(", ")}
                 </p>
-                <div className="flex mt-3">
+                <div className="flex mt-3 items-center justify-between">
                   <p>
                     <span className="font-semibold">Likes:</span>{" "}
                     {recipe.likeCount}
@@ -86,5 +89,4 @@ const AllRecipe = () => {
     </>
   );
 };
-
-export default AllRecipe;
+export default ALl2;

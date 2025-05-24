@@ -16,6 +16,7 @@ import AuthProvider from "./Provider/AuthProvider.jsx";
 import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import { ToastContainer } from "react-toastify";
 import Details from "./Pages/Details/Details.jsx";
+import ALl2 from "./Pages/AllRecipe/All2.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/all-recipe",
-        Component: AllRecipe,
+        Component: ALl2,
         loader: () => fetch("http://localhost:3000/recipes"),
         hydrateFallbackElement: <Loading />,
       },

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import UpdateModal from "../UpdateModal/UpdateModal";
 
 const RecipeCard = ({ handleDelete, handleUpdate, recipe }) => {
-    console.log(recipe);
     
   const [showModal, setShowModal] = useState(false);
   const handleDeleteClick = () => {

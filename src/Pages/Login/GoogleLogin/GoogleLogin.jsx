@@ -14,7 +14,7 @@ const GoogleLogin = () => {
     GoogleLogin()
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log(credential);
+        // console.log(credential);
         const user = result.user;
 
         setUser({ ...user, credential });

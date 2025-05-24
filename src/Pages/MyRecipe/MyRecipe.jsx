@@ -6,7 +6,6 @@ import RecipeCard from "./RecipeCard/RecipeCard";
 
 const MyRecipe = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     if (user.email) {
