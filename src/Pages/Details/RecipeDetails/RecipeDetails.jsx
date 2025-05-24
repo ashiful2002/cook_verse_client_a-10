@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaArrowUp, FaHeart, FaRegHeart } from "react-icons/fa";
 
 const RecipeDetails = ({ recipe }) => {
   const { user } = useContext(AuthContext);
@@ -71,12 +71,13 @@ const RecipeDetails = ({ recipe }) => {
             <span className="font-semibold">Categories:</span>{" "}
             {recipe.selectedCategories?.join(", ")}
           </p>
-          
-          <button onClick={handleLike} >
+
+          <button onClick={handleLike}>
             <div className="flex items-center gap-2">
-              <span>
-                { <FaHeart className="text-primary" /> }
+              <span className="flex">
+                {<FaHeart className="text-primary" />}
               </span>
+
               <span>{likes}</span>
             </div>
           </button>

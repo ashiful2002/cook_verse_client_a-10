@@ -28,7 +28,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
-        loader: () => fetch("http://localhost:3000/recipes"),
+        loader: () => fetch("http://localhost:3000/recipes/top-liked"),
         hydrateFallbackElement: <Loading />,
       },
       {

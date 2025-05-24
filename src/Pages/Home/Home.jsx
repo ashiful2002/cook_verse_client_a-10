@@ -23,7 +23,7 @@ const Home = () => {
                 <img
                   src={recipe.image}
                   alt={recipe.title}
-                  className="w-full h-72 object-cover"
+                  className="w-110 h-72 object-cover"
                 />
               </figure>
               <div className="card-body">
