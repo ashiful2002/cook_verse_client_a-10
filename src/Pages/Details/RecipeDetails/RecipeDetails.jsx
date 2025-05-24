@@ -12,16 +12,10 @@ const RecipeDetails = ({ recipe }) => {
     if (!user) {
       return;
     }
-
-    // if (!liked) {
-    //   setLikes(likes + 1);
-    //   setLiked(true);
-    // }
     const newLikes = likes + 1;
-    // set in ui
     setLikes(newLikes);
 
-    fetch(`http://https://a10-book-server-app.vercel.app/:3000/recipes/${recipe._id}/like`, {
+    fetch(`https://a10-book-server-app.vercel.app/recipes/${recipe._id}/like`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

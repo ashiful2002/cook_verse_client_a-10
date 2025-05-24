@@ -16,7 +16,7 @@ const MyRecipe = () => {
   }, [user]);
 
   const handleDelete = (id) => {
-    fetch(`https://a10-book-server-app.vercel.app//recipes/${id}`, {
+    fetch(`https://a10-book-server-app.vercel.app/recipes/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
