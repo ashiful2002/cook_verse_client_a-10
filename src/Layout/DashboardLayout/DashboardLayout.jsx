@@ -59,7 +59,9 @@ const DashboardLayout = () => {
                     <Link to="/" className="btn btn-ghost text-xl">
                       Cook<span className="text-primary -ml-2">_Verse</span>
                     </Link>
-                    <p>Dashboard</p>
+                    <Link to="/dashboard" className="underline text-primary">
+                      Dashboard
+                    </Link>
                   </div>
                 </div>
                 <div className="hidden flex-none  lg:hidden">
