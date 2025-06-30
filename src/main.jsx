@@ -19,12 +19,15 @@ import Details from "./Pages/Details/Details.jsx";
 import ALl2 from "./Pages/AllRecipe/All2.jsx";
 import About from "./Pages/About/About.jsx";
 import DashboardLayout from "./Layout/DashboardLayout/DashboardLayout.jsx";
+import Overview from "./Layout/DashboardLayout/Overview/Overview.jsx";
+import AllItems from "./Layout/DashboardLayout/Overview/AllItems.jsx";
+import MyItems from "./Layout/DashboardLayout/Overview/MyItems.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
-    ErrorBoundary: ErrorPage,
+    // ErrorBoundary: ErrorPage,
     hydrateFallbackElement: <Loading />,
     children: [
       {
@@ -91,6 +94,24 @@ const router = createBrowserRouter([
         <DashboardLayout />
       </PrivateRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <Overview />,
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
+      },
+
+      {
+        path: "my-recipe",
+        element: <MyItems />,
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
+      },
+      {
+        path: "all-recipe",
+        element: <AllItems />,
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
+      },
+    ],
   },
 ]);
 

@@ -1,15 +1,25 @@
-import React from "react";
-import { Outlet } from "react-router";
+import React, { useContext } from "react";
+import { Link, NavLink, Outlet } from "react-router";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const DashboardLayout = () => {
+  const { user } = useContext(AuthContext);
   const dashboardLinks = (
     <>
-      <li>
-        <a>Sidebar Item 1</a>
-      </li>
-      <li>
-        <a>Sidebar Item 2</a>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+          </li>
+          <li>
+            <NavLink to="my-recipe">My items</NavLink>
+          </li>
+
+          <li>
+            <NavLink to="all-recipe">All items</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -18,7 +28,6 @@ const DashboardLayout = () => {
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col ">
           {/* dsfgag asdfg a */}
-
           <div className="drawer">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col">
@@ -45,7 +54,14 @@ const DashboardLayout = () => {
                     </svg>
                   </label>
                 </div>
-                <div className="mx-2 flex-1 px-2 lg:hidden">Dashboard</div>
+                <div className="mx-2 flex-1 px-2 lg:hidden">
+                  <div className="flex items-center justify-between">
+                    <Link to="/" className="btn btn-ghost text-xl">
+                      Cook<span className="text-primary -ml-2">_Verse</span>
+                    </Link>
+                    <p>Dashboard</p>
+                  </div>
+                </div>
                 <div className="hidden flex-none  lg:hidden">
                   <ul className="menu menu-horizontal">
                     {/* Navbar menu content here */}
