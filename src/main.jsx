@@ -17,6 +17,8 @@ import PrivateRoute from "./Provider/PrivateRoute.jsx";
 import { ToastContainer } from "react-toastify";
 import Details from "./Pages/Details/Details.jsx";
 import ALl2 from "./Pages/AllRecipe/All2.jsx";
+import About from "./Pages/About/About.jsx";
+import DashboardLayout from "./Layout/DashboardLayout/DashboardLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,12 @@ const router = createBrowserRouter([
       {
         path: "/",
         Component: Home,
-        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes/top-liked"),
+        loader: () => fetch("https://a10-book-server-app.vercel.app/recipes"),
+        hydrateFallbackElement: <Loading />,
+      },
+      {
+        path: "/about",
+        Component: About,
         hydrateFallbackElement: <Loading />,
       },
       {
@@ -75,6 +82,15 @@ const router = createBrowserRouter([
         Component: SignUp,
       },
     ],
+  },
+
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
   },
 ]);
 

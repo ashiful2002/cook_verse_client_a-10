@@ -18,7 +18,7 @@ const ErrorPage = () => {
         </p>
         <div className="flex justify-center mt-6">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png"
+            src="https://cdn.pixabay.com/photo/2014/12/21/23/28/recipe-575434_1280.png"
             alt="Book"
             className="w-28 h-28"
           />

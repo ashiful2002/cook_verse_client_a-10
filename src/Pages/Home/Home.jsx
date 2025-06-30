@@ -6,6 +6,8 @@ import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 const Home = () => {
   const data = useLoaderData();
+  console.log(data);
+  
   return (
     <div>
       <Helmet>
@@ -53,6 +55,8 @@ const Home = () => {
           All Recipe
         </Link>
       </div>
+
+      
     </div>
   );
 };
