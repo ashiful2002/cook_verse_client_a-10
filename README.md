@@ -11,14 +11,6 @@ Cook_verse is a web application designed for food enthusiasts who love to explor
 - **Live Website:** [https://books-recipe-app.web.app/](https://books-recipe-app.web.app/)
 - **Server API:** [https://a10-book-server-bxs8g7pi0-ashiful2002s-projects.vercel.app/](https://a10-book-server-bxs8g7pi0-ashiful2002s-projects.vercel.app/)
 
----
-
-## GitHub Repositories
-
-- **Client Side:** [Client Repo](https://github.com/Programming-Hero-Web-Course4/b11a10-client-side-ashiful2002)
-- **Server Side:** [Server Repo](https://github.com/Programming-Hero-Web-Course4/b11a10-server-side-ashiful2002)
-
----
 
 ##  Features
 
@@ -40,16 +32,32 @@ Cook_verse is a web application designed for food enthusiasts who love to explor
 
 ##  Tech Stack
 
-- **Frontend:** React, Tailwind CSS, React Router, React Helmet
+- **Frontend:** React, Tailwind CSS, React Router, React Helmet.
 - **Backend:** Node.js, Express
+- **Database:** mongodb
 - **Authentication:** Firebase
 - **Hosting:** Firebase Hosting (Client), Vercel (Server)
 
 ---
 
-##  Contributions
+## 🛠️ How to Run This Project Locally (Frontend)
 
-Contributions are welcome. Fork the repo, make changes, and submit a pull request.
 
----
+1. **Clone the Repository**
+
+git clone https://github.com/ashiful2002/cook_verse_client_a-10.git
+
+
+   
+2. Navigate to the Project Folder
+
+cd project name
+
+3. Install Dependencies
+npm install
+
+4. Create a .env File
+   and ask me for env files.
+   
+6. npm run dev
 
